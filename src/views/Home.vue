@@ -1,14 +1,17 @@
 <template>
     <div class="home">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-          	<a class="navbar-brand" href="#">Krank Club</a>
-        </nav>
-		<div class="container" v-if="matches">
-			<div v-for="match in matches" v-bind:key="match.id">
-				<MatchInfo v-bind:match="match"/>
-			</div>
-		</div>
-    </div>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand" href="#">Krank Club</a>
+      </nav>
+      <div class="container" v-if="matches">
+        <div v-for="(value, key) in groupByDate" v-bind:key="key">
+          <p>{{ key }}</p>
+          <div v-for="match in value" v-bind:key="match.id">
+            <MatchInfo v-bind:match="match"/>
+          </div>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
@@ -22,9 +25,15 @@ export default {
   props: {
     matches: null
   },
-  mounted() {
-    
-  }
+  computed: {
+    groupByDate() {
+      return this.matches.reduce(function(rv, x) {
+        (rv[x.time] = rv[x.time] || []).push(x);
+        return rv;
+      }, {});
+    }
+  },
+  mounted() {}
 };
 </script>
 
