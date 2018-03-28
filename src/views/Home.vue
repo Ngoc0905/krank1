@@ -3,10 +3,12 @@
       <nav class="navbar navbar-expand-lg navbar-dark">
           <a class="navbar-brand" href="#">Krank Club</a>
       </nav>
-      <div class="container" v-if="matches">
+      <div v-if="matchesReady">
         <div v-for="(value, key) in groupByDate" v-bind:key="key">
-          <p>{{ key }}</p>
-          <div v-for="match in value" v-bind:key="match.id">
+          <div class="container date">
+            <p>{{ key | formattedDate }}</p>
+          </div>
+          <div v-for="match in value" v-bind:key="match.id" class="container">
             <MatchInfo v-bind:match="match"/>
           </div>
         </div>
@@ -22,6 +24,11 @@ export default {
   components: {
     MatchInfo
   },
+  data() {
+    return {
+      matchesReady: false
+    };
+  },
   props: {
     matches: null
   },
@@ -33,7 +40,44 @@ export default {
       }, {});
     }
   },
-  mounted() {}
+  filters: {
+    formattedDate: function(date) {
+      date = new Date(date);
+      const dates = [
+        "Sunday",
+        "Monday",
+        "Tueday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
+      const months = [
+        "January",
+        "February",
+        "Mars",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      return `${dates[date.getDay()]} ${date.getDate()} ${
+        months[date.getMonth()]
+      }`;
+    }
+  },
+  created() {
+    const colors = ["#37B76A", "#666666", "#FF5C5C", "#FFBC49"];
+    for (var i = 0; i < this.matches.length; i++) {
+      this.matches[i].color = colors[i % colors.length];
+    }
+    this.matchesReady = true;
+  }
 };
 </script>
 
@@ -45,5 +89,9 @@ export default {
 
 .navbar .navbar-brand {
   margin: 0 auto;
+}
+
+.date {
+  background-color: #f0f0f0;
 }
 </style>
