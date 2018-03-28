@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 
 import Home from './views/Home';
 import Profile from './views/Profile';
-import matches from './matches';
 
 Vue.use(VueRouter)
 
@@ -13,10 +12,7 @@ export default new VueRouter({
         {
             path: '/',
             name: 'home',
-            component: Home,
-            props: {
-                matches: matches
-            }
+            component: Home
         },
         {
             path: '/profile',

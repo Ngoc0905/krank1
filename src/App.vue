@@ -1,10 +1,14 @@
 <template>
   <div class="container-fluid">
-    <router-view />
+    <main>
+      <router-view />
+    </main>
     <div class="footer">
       <div class="profile-container">
-        <i class="fas fa-user-circle"></i>
-        <span>Profile</span>
+        <router-link to="/profile">
+          <i class="fas fa-user-circle"></i>
+          <span>Profile</span>
+        </router-link>
       </div>
       <div class="nav-button">
         <button class="plus-btn-container">
@@ -12,8 +16,10 @@
         </button>
       </div>
       <div class="matches-container active">
-        <i class="far fa-calendar-alt"></i>
-        <span>Matches</span>
+        <router-link to="/">
+          <i class="far fa-calendar-alt"></i>
+          <span>Matches</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -41,6 +47,7 @@ export default {
 </style>
 
 <style scoped>
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -63,7 +70,20 @@ export default {
   font-size: 1.5rem;
 }
 
-.footer > div.active {
+.footer > div a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #a8a8a8;
+}
+
+.footer > div a:active,
+.footer > div a:hover {
+  text-decoration: none;
+}
+
+.footer > div a.router-link-exact-active {
   color: #41a6d3;
 }
 
@@ -71,7 +91,7 @@ export default {
   font-size: 2rem;
 }
 
-.footer > div.nav-button .plus-btn-container{
+.footer > div.nav-button .plus-btn-container {
   height: 70px;
   width: 70px;
   border-radius: 50%;
@@ -81,12 +101,18 @@ export default {
   align-items: center;
   margin-top: -70px;
   color: #fff;
-  border: 2px solid #E0E0E0;
+  border: 2px solid #e0e0e0;
   outline: none;
 }
 
 .footer > div span {
   font-size: 0.8rem;
+}
+
+main {
+  height: calc(100vh - 146px);
+  overflow: auto;
+  margin-top: 56px;
 }
 </style>
 

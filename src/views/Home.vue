@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
           <a class="navbar-brand" href="#">Krank Club</a>
       </nav>
       <div v-if="matchesReady">
@@ -18,6 +18,7 @@
 
 <script>
 import MatchInfo from "../components/MatchInfo";
+import matches from "../matches";
 
 export default {
   name: "Home",
@@ -26,11 +27,9 @@ export default {
   },
   data() {
     return {
-      matchesReady: false
+      matchesReady: false,
+      matches: matches
     };
-  },
-  props: {
-    matches: null
   },
   computed: {
     groupByDate() {
